@@ -17,94 +17,65 @@ function App() {
       squareNum: 0,
       isOn: 0,
       squareAud: new Audio(aud1),
-      intervalAud: 0,
     },
     {
       squareNum: 1,
       isOn: 0,
       squareAud: new Audio(aud2),
-      intervalAud: 0,
     },
     {
       squareNum: 2,
       isOn: 0,
       squareAud: new Audio(aud3),
-      intervalAud: 0,
     },
     {
       squareNum: 3,
       isOn: 0,
       squareAud: new Audio(aud4),
-      intervalAud: 0,
     },
     {
       squareNum: 4,
       isOn: 0,
       squareAud: new Audio(aud5),
-      intervalAud: 0,
     },
     {
       squareNum: 5,
       isOn: 0,
       squareAud: new Audio(aud6),
-      intervalAud: 0,
     },
     {
       squareNum: 6,
       isOn: 0,
       squareAud: new Audio(aud7),
-      intervalAud: 0,
     },
     {
       squareNum: 7,
       isOn: 0,
       squareAud: new Audio(aud8),
-      intervalAud: 0,
     },
     {
       squareNum: 8,
       isOn: 0,
       squareAud: new Audio(aud9),
-      intervalAud: 0,
     },
   ]);
 
   const [isMachineActive, setIsMachineActive] = useState(false);
 
   useEffect(() => {
-    if (isMachineActive) {
-      const newMachineStateWithInterval = machineSquares.reduce(
-        (accum, currentValue) => {
-          if (currentValue.isOn) {
-            currentValue.squareAud.play();
-            accum.push({
-              ...currentValue,
-                  intervalAud: setInterval(() => {
-                  console.log("interval")
-                currentValue.squareAud.play();
-              }, 8000),
-            });
-          } else {
-            accum.push(currentValue);
-          }
-          return accum;
-        },
-        []
-      );
-      setMachineSquares(newMachineStateWithInterval);
-    } else {
-      machineSquares.forEach(
-        (square) =>
-          !!square.isOn &&
-          clearInterval(square.intervalAud) &&
-        square.squareAud.pause()
-    );
-    }
+    machineSquares.forEach((square) => {
+      if (isMachineActive && square.isOn) {
+        square.squareAud.play();
+        square.squareAud.loop = true;
+      } else {
+        !!square.isOn && square.squareAud.pause();
+      }
+    });
   }, [isMachineActive]);
 
   const handleSquareClick = useCallback(
     (currentSquare) => {
-      const { squareNum, isOn, squareAud, intervalAud } = currentSquare;
+      const { squareNum, isOn, squareAud } = currentSquare;
       const newMachineSquareState = [
         ...machineSquares.slice(0, squareNum),
         { ...currentSquare, isOn: !isOn ? 1 : 0 },
@@ -113,11 +84,8 @@ function App() {
       setMachineSquares(newMachineSquareState);
 
       if (isOn && isMachineActive) {
-          squareAud.pause();
-          clearInterval(intervalAud);
-
+        squareAud.pause();
       }
-
     },
     [machineSquares]
   );
@@ -139,7 +107,6 @@ function App() {
             <MachineSquare
               key={square.squareNum}
               isOn={square.isOn}
-              audio={square.squareAud}
               isMachineActive={isMachineActive}
               onClick={() => handleSquareClick(square)}
             />
