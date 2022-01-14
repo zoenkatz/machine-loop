@@ -79,9 +79,10 @@ function App() {
             currentValue.squareAud.play();
             accum.push({
               ...currentValue,
-              intervalAud: setInterval(() => {
+                  intervalAud: setInterval(() => {
+                  console.log("interval")
                 currentValue.squareAud.play();
-              }, 0),
+              }, 8000),
             });
           } else {
             accum.push(currentValue);
@@ -96,8 +97,8 @@ function App() {
         (square) =>
           !!square.isOn &&
           clearInterval(square.intervalAud) &&
-          square.squareAud.pause()
-      );
+        square.squareAud.pause()
+    );
     }
   }, [isMachineActive]);
 
@@ -106,7 +107,7 @@ function App() {
       const { squareNum, isOn, squareAud, intervalAud } = currentSquare;
       const newMachineSquareState = [
         ...machineSquares.slice(0, squareNum),
-        { ...currentSquare, isOn: !isOn },
+        { ...currentSquare, isOn: !isOn ? 1 : 0 },
         ...machineSquares.slice(squareNum + 1),
       ];
       setMachineSquares(newMachineSquareState);
