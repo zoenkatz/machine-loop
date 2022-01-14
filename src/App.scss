@@ -1,3 +1,8 @@
+html{
+  height: 100%;
+  background-color: #1d2222;
+}
+
 .App{
   display: flex;
   flex-direction: column;
@@ -7,8 +12,9 @@
   .loop-machine-title {
     text-align: center;
     font-weight: bold;
-    font-size: 24px;
-    color: #f38776;
+    font-size: 25px;
+    color: #81a1ed;
+    margin-top: 40px;
   }
 
   .machine-squares{
@@ -17,10 +23,11 @@
     justify-content: center;
     align-items: center;
     margin: 10px;
+    flex-wrap: wrap;
   }
 
   .machine-switch-button{
-    margin: 10px;
+    margin: 50px;
   }
 
   .switch {
