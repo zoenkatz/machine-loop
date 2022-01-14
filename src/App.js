@@ -87,7 +87,7 @@ function App() {
         squareAud.pause();
       }
     },
-    [machineSquares]
+    [machineSquares, isMachineActive]
   );
   return (
     <div className="App">
