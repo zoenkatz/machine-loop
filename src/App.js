@@ -17,60 +17,72 @@ function App() {
       squareNum: 0,
       isOn: 0,
       squareAud: new Audio(aud1),
+      isPlaying: false
     },
     {
       squareNum: 1,
       isOn: 0,
       squareAud: new Audio(aud2),
+      isPlaying: false
     },
     {
       squareNum: 2,
       isOn: 0,
       squareAud: new Audio(aud3),
+      isPlaying: false
     },
     {
       squareNum: 3,
       isOn: 0,
       squareAud: new Audio(aud4),
+      isPlaying: false
     },
     {
       squareNum: 4,
       isOn: 0,
       squareAud: new Audio(aud5),
+      isPlaying: false
     },
     {
       squareNum: 5,
       isOn: 0,
       squareAud: new Audio(aud6),
+      isPlaying: false
     },
     {
       squareNum: 6,
       isOn: 0,
       squareAud: new Audio(aud7),
+      isPlaying: false
     },
     {
       squareNum: 7,
       isOn: 0,
       squareAud: new Audio(aud8),
+      isPlaying: false
     },
     {
       squareNum: 8,
       isOn: 0,
       squareAud: new Audio(aud9),
+      isPlaying: false
     },
   ]);
 
   const [isMachineActive, setIsMachineActive] = useState(false);
 
   useEffect(() => {
-    machineSquares.forEach((square) => {
+    const newSquaresState =  machineSquares.map((square) => {
       if (isMachineActive && square.isOn) {
         square.squareAud.play();
         square.squareAud.loop = true;
+        return {...square, isPlaying: true}
       } else {
         !!square.isOn && square.squareAud.pause();
+        return {...square, isPlaying: false}
       }
     });
+    setMachineSquares(newSquaresState);
   }, [isMachineActive]);
 
   const handleSquareClick = useCallback(
@@ -109,6 +121,7 @@ function App() {
               isOn={square.isOn}
               isMachineActive={isMachineActive}
               onClick={() => handleSquareClick(square)}
+              isPlaying={square.isPlaying}
             />
           );
         })}
