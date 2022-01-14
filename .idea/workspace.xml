@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f9056127-786a-4554-b758-d152841e5796" name="Default Changelist" comment="" />
+    <list default="true" id="f9056127-786a-4554-b758-d152841e5796" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -28,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="86" column="17" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="17" />
+            <state relative-caret-position="353">
+              <caret line="89" column="20" selection-start-line="89" selection-start-column="20" selection-end-line="89" selection-end-column="20" />
               <folding>
                 <element signature="e#0#53#0" expanded="true" />
               </folding>
@@ -66,6 +68,8 @@
       <find>handleMachineSwitchButton</find>
       <find>setInte</find>
       <find>play</find>
+      <find>setMachineSquares</find>
+      <find>setIsMachineActive</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -184,12 +188,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1642143415338</updated>
-      <workItem from="1642143418620" duration="12349000" />
+      <workItem from="1642143418620" duration="12715000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12349000" />
+    <option name="totallyTimeSpent" value="12715000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="25" y="24" width="1400" height="771" extended-state="0" />
@@ -263,8 +267,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="86" column="17" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="17" />
+        <state relative-caret-position="353">
+          <caret line="89" column="20" selection-start-line="89" selection-start-column="20" selection-end-line="89" selection-end-column="20" />
           <folding>
             <element signature="e#0#53#0" expanded="true" />
           </folding>
