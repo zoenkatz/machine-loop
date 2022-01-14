@@ -1,0 +1,19 @@
+.machine-square{
+  height: 100px;
+  width: 100px;
+  background-color: #fff;
+  margin: 10px;
+
+  &.on{
+    border: 3px solid #0060ff;
+  }
+
+  &.off{
+    border: 3px solid #364044;
+  }
+
+  &.active{
+    background-color: #63ff37;
+  }
+
+}
