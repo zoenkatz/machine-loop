@@ -1,0 +1,120 @@
+Index: src/Components/MachineSquare/MachineSquare.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from \"react\";\nimport \"./MachineSquare.scss\";\n\nconst MachineSquare = ({ isOn, isMachineActive, onClick, isPlaying }) => {\n  console.log(isPlaying);\n  return (\n    <div\n      className={`machine-square ${isOn ? \"on\" : \"off\"} ${\n        isMachineActive && isOn && isPlaying ? \"active\" : \"\"\n      }`}\n      onClick={onClick}\n    />\n  );\n};\n\nexport default MachineSquare;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Components/MachineSquare/MachineSquare.js	(revision a5ef28377973a57d725126bfd7a1087c277191c6)
++++ src/Components/MachineSquare/MachineSquare.js	(date 1642238313000)
+@@ -1,12 +1,13 @@
+-import React from "react";
++import React, {useRef} from "react";
+ import "./MachineSquare.scss";
+ 
+-const MachineSquare = ({ isOn, isMachineActive, onClick, isPlaying }) => {
+-  console.log(isPlaying);
++const MachineSquare = ({ isOn, isMachineActive, onClick, squareAud }) => {
++    const audioRef = useRef(squareAud);
++    console.log(audioRef.current.attributes);
+   return (
+-    <div
++    <div ref={audioRef}
+       className={`machine-square ${isOn ? "on" : "off"} ${
+-        isMachineActive && isOn && isPlaying ? "active" : ""
++        isMachineActive && isOn? "active" : ""
+       }`}
+       onClick={onClick}
+     />
+Index: src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { useState, useCallback, useEffect } from \"react\";\nimport \"./App.scss\";\nimport MachineSquare from \"./Components/MachineSquare/MachineSquare\";\nimport aud1 from \"./Utils/AudioFiles/src_assets_loops_1-GHS_123_Filo_Kick_Clap.mp3\";\nimport aud2 from \"./Utils/AudioFiles/src_assets_loops_2_8-hk_top125_zulu.mp3\";\nimport aud3 from \"./Utils/AudioFiles/src_assets_loops_1-GHS_123_Filo_Kick_Clap.mp3\";\nimport aud4 from \"./Utils/AudioFiles/src_assets_loops_1-GHS_123_Filo_Kick_Clap.mp3\";\nimport aud5 from \"./Utils/AudioFiles/src_assets_loops_1-GHS_123_Filo_Kick_Clap.mp3\";\nimport aud6 from \"./Utils/AudioFiles/src_assets_loops_6-hk_syn125_holdme1_Gm.mp3\";\nimport aud7 from \"./Utils/AudioFiles/src_assets_loops_1-GHS_123_Filo_Kick_Clap.mp3\";\nimport aud8 from \"./Utils/AudioFiles/src_assets_loops_8-hk_top125_zulu.mp3\";\nimport aud9 from \"./Utils/AudioFiles/src_assets_loops_9-hk_mus125_lovefunk2_Gm.mp3\";\n\nfunction App() {\n  const [machineSquares, setMachineSquares] = useState([\n    {\n      squareNum: 0,\n      isOn: 0,\n      squareAud: new Audio(aud1),\n      isPlaying: false\n    },\n    {\n      squareNum: 1,\n      isOn: 0,\n      squareAud: new Audio(aud2),\n      isPlaying: false\n    },\n    {\n      squareNum: 2,\n      isOn: 0,\n      squareAud: new Audio(aud3),\n      isPlaying: false\n    },\n    {\n      squareNum: 3,\n      isOn: 0,\n      squareAud: new Audio(aud4),\n      isPlaying: false\n    },\n    {\n      squareNum: 4,\n      isOn: 0,\n      squareAud: new Audio(aud5),\n      isPlaying: false\n    },\n    {\n      squareNum: 5,\n      isOn: 0,\n      squareAud: new Audio(aud6),\n      isPlaying: false\n    },\n    {\n      squareNum: 6,\n      isOn: 0,\n      squareAud: new Audio(aud7),\n      isPlaying: false\n    },\n    {\n      squareNum: 7,\n      isOn: 0,\n      squareAud: new Audio(aud8),\n      isPlaying: false\n    },\n    {\n      squareNum: 8,\n      isOn: 0,\n      squareAud: new Audio(aud9),\n      isPlaying: false\n    },\n  ]);\n\n  const [isMachineActive, setIsMachineActive] = useState(false);\n\n  useEffect(() => {\n    const newSquaresState =  machineSquares.map((square) => {\n      if (isMachineActive && square.isOn) {\n        square.squareAud.play();\n        square.squareAud.loop = true;\n        return {...square, isPlaying: true}\n      } else {\n        !!square.isOn && square.squareAud.pause();\n        return {...square, isPlaying: false}\n      }\n    });\n    setMachineSquares(newSquaresState);\n  }, [isMachineActive]);\n\n  const handleSquareClick = useCallback(\n    (currentSquare) => {\n      const { squareNum, isOn, squareAud } = currentSquare;\n      const newMachineSquareState = [\n        ...machineSquares.slice(0, squareNum),\n        { ...currentSquare, isOn: !isOn ? 1 : 0 },\n        ...machineSquares.slice(squareNum + 1),\n      ];\n      setMachineSquares(newMachineSquareState);\n\n      if (isOn && isMachineActive) {\n        squareAud.pause();\n      }\n    },\n    [machineSquares, isMachineActive]\n  );\n  return (\n    <div className=\"App\">\n      <div className=\"loop-machine-title\">Loop Machine</div>\n      <div className=\"machine-switch-button\">\n        <label className=\"switch\">\n          <input\n            type=\"checkbox\"\n            onClick={() => setIsMachineActive(!isMachineActive)}\n          />\n          <span className=\"slider\"></span>\n        </label>\n      </div>\n      <div className=\"machine-squares\">\n        {machineSquares.map((square) => {\n          return (\n            <MachineSquare\n              key={square.squareNum}\n              isOn={square.isOn}\n              isMachineActive={isMachineActive}\n              onClick={() => handleSquareClick(square)}\n              isPlaying={square.isPlaying}\n            />\n          );\n        })}\n      </div>\n    </div>\n  );\n}\n\nexport default App;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/App.js	(revision a5ef28377973a57d725126bfd7a1087c277191c6)
++++ src/App.js	(date 1642237521000)
+@@ -17,72 +17,60 @@
+       squareNum: 0,
+       isOn: 0,
+       squareAud: new Audio(aud1),
+-      isPlaying: false
+     },
+     {
+       squareNum: 1,
+       isOn: 0,
+       squareAud: new Audio(aud2),
+-      isPlaying: false
+     },
+     {
+       squareNum: 2,
+       isOn: 0,
+       squareAud: new Audio(aud3),
+-      isPlaying: false
+     },
+     {
+       squareNum: 3,
+       isOn: 0,
+       squareAud: new Audio(aud4),
+-      isPlaying: false
+     },
+     {
+       squareNum: 4,
+       isOn: 0,
+       squareAud: new Audio(aud5),
+-      isPlaying: false
+     },
+     {
+       squareNum: 5,
+       isOn: 0,
+       squareAud: new Audio(aud6),
+-      isPlaying: false
+     },
+     {
+       squareNum: 6,
+       isOn: 0,
+       squareAud: new Audio(aud7),
+-      isPlaying: false
+     },
+     {
+       squareNum: 7,
+       isOn: 0,
+       squareAud: new Audio(aud8),
+-      isPlaying: false
+     },
+     {
+       squareNum: 8,
+       isOn: 0,
+       squareAud: new Audio(aud9),
+-      isPlaying: false
+     },
+   ]);
+ 
+   const [isMachineActive, setIsMachineActive] = useState(false);
+ 
+   useEffect(() => {
+-    const newSquaresState =  machineSquares.map((square) => {
++    machineSquares.forEach((square) => {
+       if (isMachineActive && square.isOn) {
+         square.squareAud.play();
+         square.squareAud.loop = true;
+-        return {...square, isPlaying: true}
+       } else {
+         !!square.isOn && square.squareAud.pause();
+-        return {...square, isPlaying: false}
+       }
+     });
+-    setMachineSquares(newSquaresState);
+   }, [isMachineActive]);
+ 
+   const handleSquareClick = useCallback(
+@@ -121,7 +109,7 @@
+               isOn={square.isOn}
+               isMachineActive={isMachineActive}
+               onClick={() => handleSquareClick(square)}
+-              isPlaying={square.isPlaying}
++              squareAud={square.squareAud}
+             />
+           );
+         })}

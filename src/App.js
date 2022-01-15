@@ -90,7 +90,7 @@ function App() {
       const { squareNum, isOn, squareAud } = currentSquare;
       const newMachineSquareState = [
         ...machineSquares.slice(0, squareNum),
-        { ...currentSquare, isOn: !isOn ? 1 : 0 },
+        { ...currentSquare, isOn: !isOn ? 1 : 0, isPlaying: !isOn ? currentSquare.isPlaying : 0 },
         ...machineSquares.slice(squareNum + 1),
       ];
       setMachineSquares(newMachineSquareState);
